@@ -1,6 +1,6 @@
 # 🏙️ Smart City Dashboard: Neural Urban Hub
 
-A high-performance, real-time urban intelligence platform for seamless monitoring and management of city infrastructure, transport, and essential services.
+A high-performance, real-time urban intelligence platform for seamless monitoring and management of city infrastructure, transport and essential services.
 
 ---
 
