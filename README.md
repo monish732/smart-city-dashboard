@@ -1,72 +1,121 @@
-# Smart City Management System
+# 🏙️ Smart City Dashboard: Neural Urban Hub
 
-A complete Smart City Management System with a React + Vite frontend and an Express + Node.js backend mapped to a Supabase Postgres realtime database....
+A high-performance, real-time urban intelligence platform for seamless monitoring and management of city infrastructure, transport, and essential services.
 
-## 📂 Folder Structure
-```text
-smart-city-dashboard/
-├── client/                 # React frontend (Vite)
-│   ├── src/
-│   │   ├── components/     # UI, Maps, Layouts
-│   │   ├── contexts/       # AuthContext, CityDataContext
-│   │   ├── lib/            # Supabase client wrapper
-│   │   ├── pages/          # Login, UserDashboard, AdminDashboard, BookTicket
-│   │   └── App.jsx         # Routes & Protection Logic
-│   └── package.jsonī
-├── server/                 # Express backend
-│   ├── index.js            # API Endpoint routes
-│   ├── supabaseClient.js   # Supabase Admin init
-│   └── package.json
-├── schema.sql              # Supabase Tables & Triggers setup
-├── seed.sql                # Initial Mockup Data
-└── README.md
-```
+---
 
-## 🛠 Supabase Setup Steps
-1. Create a new project at [Supabase](https://supabase.com).
-2. Navigate to the **SQL Editor** in your Supabase dashboard.
-3. Copy the contents of `schema.sql` and run it. This will create all your tables, the user role trigger, and enable Realtime for these tables.
-4. Copy the contents of `seed.sql` and run it to populate mock transit and city status data.
-5. In Supabase, go to **Authentication > Providers** and ensure Email/Password signup is enabled. Turn off "Confirm email" for testing purposes.
-6. Retrieve your `Project URL` and `anon key` from **Project Settings > API**.
+## 🌟 Key Features
 
-## 🚀 How to Run Locally
+### 👤 Citizen Portal (User)
+- **Live Infrastructure Map**: Real-time monitoring of traffic congestion and service node health.
+*   **Smart Mobility**: Integrated parking management with **automated fee calculation** and a seamless **UPI checkout** redirect.
+*   **Emergency Dispatch**: Dedicated SOS triggering system that alerts city admins instantly via WebSockets.
+*   **Utility Insights**: Live tracking of Water Flow, Grid Consumption, and Climate Statistics via high-performance AreaCharts.
+*   **Neural AI Assistant**: An embedded LLM-powered chat interface focused on city-specific utility queries.
 
-### 1. Environment Variables Configuration
-**Backend (`server/.env`)**
-Create or edit `server/.env`:
-```
-PORT=5000
-SUPABASE_URL=your_project_url
-SUPABASE_ANON_KEY=your_anon_key
-```
+### 👨‍💼 Operation Control (Admin)
+*   **Global Metrics Bar**: Instant oversight of daily bookings, total revenue, and city-wide alerts.
+*   **Advanced Transport Analytics**: Real-time revenue tracking and occupancy monitoring for Bus, Metro, and Public Bike networks.
+*   **Traffic Optimization**: Interactive route optimization engine to resolve congestion at major city nodes.
+*   **Security Console**: Centralized oversight of active/inactive CCTV cameras and automated service alerts.
 
-**Frontend (`client/.env`)**
-Create or edit `client/.env`:
-```
-VITE_SUPABASE_URL=your_project_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
-VITE_API_URL=http://localhost:5000
-```
+---
 
-### 2. Start the Backend Server
-Open a terminal in the `server/` directory:
+## 🛠️ Technical Ecosystem
+
+### Frontend: The Command Center
+- **Framework**: React.js 18 (Vite)
+- **Styling**: Tailwind CSS with custom **Glassmorphism** depth effects.
+- **Visuals**: `Recharts` for telemetry and `Lucide React` for high-fidelity iconography.
+- **Geospatial**: `React Leaflet` for real-time GIS node visualization.
+- **Navigation**: `React Router v6` with role-based route protection.
+
+### Backend: The City Brain
+- **Engine**: **FastAPI (Python 3.x)** - Chosen for asynchronous speed and performance.
+- **Heartbeat**: A continuous `asyncio` simulation loop that recalculates city dynamics every 1,000ms.
+- **Real-time Sync**: **Socket.io (WebSockets)** for instant "push" events (SOS, Bookings, Parking).
+- **Architecture**: Stateless RESTful API design with integrated simulation state management.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- Python 3.9+
+- Node.js 16+
+- npm or yarn
+
+### 2. Backend Setup
 ```bash
 cd server
-npm install
-npm run start # (or just node index.js)
+pip install -r requirements.txt
+uvicorn main:socket_app --reload --port 8000
 ```
-*(It should print: `Server running on port 5000`)*
+*Backend will run at: `http://localhost:8000`*
+*API Docs available at: `http://localhost:8000/docs`*
 
-### 3. Start the Frontend App
-Open a terminal in the `client/` directory:
+### 3. Frontend Setup
 ```bash
 cd client
 npm install
 npm run dev
 ```
-Visit `http://localhost:5173` (or the port Vite provides) in your browser.
+*Dashboard will run at: `http://localhost:5173`*
 
-## 👥 Authentication & Roles
-- **To Login as a User**: Simply use the sign up form on the login page. Any new user is automatically assigned the `user` role via the Postgres trigger.
-- **To Login as an Admin**: Register normally on the frontend. Then go to your Supabase Table Editor, go to the `users` table, and change your user's role string from `user` to `admin`. The UI will instantly recognize you as an Admin upon a fresh login or reload.
+---
+
+## 🏗️ Project Architecture
+
+A robust, decoupled architecture separating the **Data Simulation Layer** from the **Visual Intelligence Layer**:
+
+```text
+smart-city-dashboard/
+├── client/                          # React + Frontend Ecosystem
+│   ├── src/
+│   │   ├── components/              # Modular UI Atomic Elements
+│   │   │   ├── Map/
+│   │   │   │   └── CityMap.jsx      # Leaflet Geospatial Logic
+│   │   │   ├── Layout/
+│   │   │   │   ├── Layout.jsx       # Base structural wrapper
+│   │   │   │   └── Navbar.jsx       # Side-navigation routing
+│   │   │   └── UI/
+│   │   │       ├── Button.jsx       # Glassmorphic Base Button
+│   │   │       └── Card.jsx         # Telemetry Data container
+│   │   ├── contexts/                # Global Neural State Management
+│   │   │   ├── AuthContext.jsx      # Role-Based Security & JWT Logic
+│   │   │   └── CityDataContext.jsx  # Shared Simulation Data Stream
+│   │   ├── pages/                   # Feature-Rich City Portals
+│   │   │   ├── Auth/
+│   │   │   │   └── Login.jsx        # Modern Session Entry
+│   │   │   ├── Dashboard/
+│   │   │   │   ├── AdminDashboard.jsx # Operation Control Center
+│   │   │   │   ├── UserDashboard.jsx  # Citizen Service Hub
+│   │   │   │   └── BookTicket.jsx     # Transit Reservation Portal
+│   │   │   └── Services/
+│   │   │       ├── Payment.jsx      # Secured Neural Checkout
+│   │   │       └── Confirmation.jsx # Transaction Receipt Logic
+│   │   ├── App.jsx                  # Main RBAC Multi-Route Integrated Hub
+│   │   ├── main.jsx                 # Client Entry Point
+│   │   └── index.css                # Global Glassmorphic CSS Variables
+│   └── package.json                 # Node.js dependencies & scripts
+│
+├── server/                          # Python + Backend Neural Engine
+│   ├── main.py                      # API Gateway (REST + Socket.io Server)
+│   ├── simulation.py                # City Brain (Heartbeat & Logic Engine)
+│   ├── seed.sql                     # Legacy Initial Data seeding
+│   ├── schema.sql                   # Database Structure Blueprint
+│   └── requirements.txt             # Python Package Manifest (FastAPI/Sio)
+│
+└── README.md                        # Project Documentation & Architecture
+```
+
+---
+
+## 🎨 Visual Identity & UI Standards
+The dashboard utilizes a **Frosted Glass (Glassmorphism)** aesthetic, featuring:
+- Semi-transparent backdrop-blur layers.
+- High-contrast typography for mission-critical data.
+- Harmonic color palettes (Emerald for Health, Rose for Alerts, Indigo for Services).
+
+---
+*Developed as a next-generation blueprint for urban resiliency and responsive governance.*
